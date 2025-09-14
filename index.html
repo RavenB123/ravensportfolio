@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Raven's Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Open+Sans:wght@300;400&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* Basic Reset & Body Styling */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Open Sans', sans-serif;
+            color: #fff;
+            background-color: #f0f0f0;
+            line-height: 1.6;
+        }
+
+        /* --- Background Container for the main CIRCLES.jpeg image --- */
+        .background-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+            z-index: -1;
+        }
+
+        .background-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('CIRCLES.jpeg');
+            background-size: cover;
+            background-position: center;
+            animation: panAndPulse 60s ease-in-out infinite alternate;
+            filter: brightness(1.1);
+        }
+
+        @keyframes panAndPulse {
+            0% {
+                transform: translate(3%, 0%) scale(1.0);
+            }
+
+            50% {
+                transform: translate(-3%, 0%) scale(1.10);
+            }
+
+            70% {
+                transform: translate(-0.6%, 0%) scale(1.18);
+            }
+
+            100% {
+                transform: translate(3%, 0%) scale(1.0);
+            }
+        }
+
+        /* --- Main Header & Navigation --- */
+        .main-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 50px;
+            box-sizing: border-box;
+            background: rgba(0, 0, 0, 0.3);
+            z-index: 10;
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            transition: background-color 0.3s ease;
+        }
+
+        .site-branding h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.1em;
+            margin: 0;
+            font-weight: 700;
+            color: #fff;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+            letter-spacing: 1px;
+        }
+
+        .main-nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            gap: 25px;
+        }
+
+        .main-nav li a {
+            font-family: 'Open Sans', sans-serif;
+            font-size: 0.95em;
+            text-decoration: none;
+            color: #ffffff;
+            font-weight: 600;
+            position: relative;
+            padding: 5px 0;
+        }
+
+        .main-nav li a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: #fff;
+            transition: width 0.3s ease;
+        }
+
+        .main-nav li a:hover::after,
+        .main-nav li a.active::after {
+            width: 100%;
+        }
+
+        /* --- Hero Section (main centered content) --- */
+        .hero-section {
+            position: relative;
+            z-index: 1;
+            min-height: 100vh;
+            width: 100vw;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 100px 20px 20px;
+            box-sizing: border-box;
+        }
+
+        .hero-section h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2.8em;
+            margin-bottom: 0.2em;
+            text-shadow: 4px 4px 8px rgba(0, 0, 0, 0.8);
+            letter-spacing: 2px;
+            font-weight: 700;
+        }
+
+        .subtitle-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 40px;
+        }
+
+        .hero-section .subtitle {
+            font-family: 'Open Sans', sans-serif;
+            font-size: 1.5em;
+            font-weight: 400;
+            margin: 0;
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.7);
+            white-space: nowrap;
+            overflow: hidden;
+            border-right: 2px solid rgba(255, 255, 255, 0.75);
+            animation: typing 2.5s steps(20, end),
+                blink-caret 0.75s step-end infinite;
+        }
+
+        /* Typing Effect Keyframes */
+        @keyframes typing {
+            from {
+                width: 0
+            }
+
+            to {
+                width: 100%
+            }
+        }
+
+        /* Cursor Blinking Keyframes */
+        @keyframes blink-caret {
+
+            from,
+            to {
+                border-color: transparent
+            }
+
+            50% {
+                border-color: rgba(255, 255, 255, 0.75);
+            }
+        }
+
+        /* --- Scroll Down Arrow Styles --- */
+        .scroll-down-arrow {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 3.5em;
+            color: white;
+            text-decoration: none;
+            cursor: pointer;
+            text-shadow: 0px 0px 15px rgba(255, 255, 255, 0.9), 0 0 5px rgba(255, 255, 255, 0.5);
+            z-index: 5;
+            transition: transform 0.2s ease-out;
+            animation: bounce 1.5s infinite;
+        }
+
+        .scroll-down-arrow:hover {
+            transform: translateX(-50%) scale(1.1);
+        }
+
+        @keyframes bounce {
+
+            0%,
+            100% {
+                transform: translateX(-50%) translateY(0);
+            }
+
+            50% {
+                transform: translateX(-50%) translateY(-20px);
+            }
+        }
+
+        /* --- Section Styling --- */
+        section {
+            min-height: 100vh;
+            background-color: rgba(0, 0, 0, 0.65);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 80px 40px;
+            box-sizing: border-box;
+            color: #fff;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        section h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2.5em;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.6);
+            letter-spacing: 1.5px;
+        }
+
+        /* --- About Section Styles --- */
+        #about-section {
+            display: flex;
+            flex-direction: column;
+            /* Change to column to center heading */
+            text-align: center;
+            gap: 60px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        #about-section h2 {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+        }
+
+        #about-content-wrapper {
+            display: flex;
+            flex-direction: row;
+            gap: 60px;
+            flex-wrap: wrap;
+            justify-content: center;
+            text-align: left;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+            transition-delay: 0.2s;
+            /* Delay the content wrapper a bit */
+        }
+
+        #about-section.in-view h2 {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        #about-section.in-view #about-content-wrapper {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .profile-image-container {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 4px solid rgba(255, 255, 255, 0.8);
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+            flex-shrink: 0;
+        }
+
+        .profile-image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .about-text-box {
+            flex-grow: 1;
+            max-width: 500px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+            text-align: left;
+        }
+
+        .about-text-box h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.8em;
+            margin-bottom: 15px;
+        }
+
+        .about-text-box p {
+            font-size: 1.1em;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        /* --- Projects Section Styles --- */
+        .projects-intro {
+            font-size: 1.1em;
+            max-width: 700px;
+            margin-bottom: 40px;
+            line-height: 1.6;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .project-card {
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 25px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            text-align: center;
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .project-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .project-card img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .project-card h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.6em;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .project-card p {
+            font-size: 1em;
+            line-height: 1.4;
+            flex-grow: 1;
+        }
+
+        .project-button {
+            display: inline-block;
+            padding: 10px 20px;
+            margin-top: 15px;
+            background-color: rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            border-radius: 5px;
+            font-size: 0.9em;
+            font-weight: 700;
+            text-transform: uppercase;
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+
+        .project-card:hover .project-button {
+            background-color: rgba(255, 255, 255, 0.25);
+            border-color: rgba(255, 255, 255, 0.8);
+        }
+
+        /* --- Contact Section Styles --- */
+        #contact-section {
+            min-height: 80vh;
+        }
+
+        .contact-intro {
+            font-size: 1.1em;
+            max-width: 600px;
+            margin: 0 auto 30px;
+            line-height: 1.6;
+        }
+
+        .contact-form-container {
+            background-color: rgba(255, 255, 255, 0.15);
+            padding: 40px;
+            border-radius: 15px;
+            max-width: 500px;
+            width: 100%;
+            margin: 0 auto;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .contact-form-container input[type="text"],
+        .contact-form-container input[type="email"],
+        .contact-form-container textarea {
+            width: 100%;
+            padding: 15px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            border-radius: 8px;
+            background-color: rgba(0, 0, 0, 0.3);
+            color: #fff;
+            font-family: 'Open Sans', sans-serif;
+            font-size: 1em;
+            box-sizing: border-box;
+            transition: border-color 0.3s ease, background-color 0.3s ease;
+        }
+
+        .contact-form-container input:focus,
+        .contact-form-container textarea:focus {
+            outline: none;
+            border-color: rgba(255, 255, 255, 0.8);
+            background-color: rgba(0, 0, 0, 0.4);
+        }
+
+        .contact-form-container textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .contact-form-container input[type="submit"] {
+            background-color: #fff;
+            color: #000;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.1em;
+            font-weight: 700;
+            text-transform: uppercase;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .contact-form-container input[type="submit"]:hover {
+            background-color: #e0e0e0;
+            transform: scale(1.02);
+        }
+
+        /* --- Socials Bar --- */
+        .socials-bar {
+            margin-top: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .socials-bar a {
+            color: #fff;
+            font-size: 2.5em;
+            margin: 0 15px;
+            transition: color 0.3s ease, transform 0.2s ease;
+        }
+
+        .socials-bar a:hover {
+            color: rgba(255, 255, 255, 0.7);
+            transform: scale(1.1);
+        }
+
+        /* --- Footer --- */
+        .site-footer {
+            text-align: center;
+            padding: 20px;
+            background-color: rgba(0, 0, 0, 0.8);
+            font-size: 0.9em;
+            color: #ccc;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            z-index: 5;
+        }
+
+        /* --- Responsive Adjustments --- */
+        @media (max-width: 768px) {
+            .main-header {
+                flex-direction: column;
+                align-items: center;
+                padding: 15px 20px;
+                text-align: center;
+            }
+
+            .site-branding {
+                margin-bottom: 10px;
+            }
+
+            .main-nav ul {
+                gap: 15px;
+            }
+
+            .hero-section h1 {
+                font-size: 2.2em;
+            }
+
+            .hero-section .subtitle {
+                font-size: 1.3em;
+            }
+
+            #about-section,
+            .about-text-box {
+                text-align: center;
+            }
+
+            .profile-image-container {
+                margin-bottom: 20px;
+            }
+
+            #projects-section,
+            #contact-section {
+                padding: 60px 30px;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .main-header {
+                padding: 10px 15px;
+            }
+
+            .site-branding h1 {
+                font-size: 1em;
+            }
+
+            .main-nav ul {
+                gap: 10px;
+            }
+
+            .main-nav li a {
+                font-size: 0.85em;
+            }
+
+            .hero-section h1 {
+                font-size: 1.8em;
+            }
+
+            .hero-section .subtitle {
+                font-size: 1.1em;
+            }
+
+            #about-section h2,
+            #projects-section h2,
+            #contact-section h2 {
+                font-size: 2em;
+            }
+
+            .contact-form-container {
+                padding: 25px;
+            }
+
+            .socials-bar a {
+                font-size: 2em;
+                margin: 0 10px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="background-container">
+        <div class="background-image"></div>
+    </div>
+
+    <header class="main-header">
+        <div class="site-branding">
+            <h1>Raven Besharah | Portfolio</h1>
+        </div>
+        <nav class="main-nav">
+            <ul>
+                <li><a href="#about-section">About Me</a></li>
+                <li><a href="#projects-section">Projects</a></li>
+                <li><a href="contact-socials.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="hero-section">
+        <h1>Raven Besharah's Portfolio</h1>
+        <div class="subtitle-container">
+            <p class="subtitle" id="typed-text"></p>
+        </div>
+        <a href="#about-section" class="scroll-down-arrow" aria-label="Scroll down to content">
+            &darr;
+        </a>
+    </div>
+
+    <section id="about-section" class="about-section">
+        <h2>About Me</h2>
+        <div id="about-content-wrapper">
+            <div class="profile-image-container">
+                <img src="Profilepic.JPG" alt="Raven Besharah Profile Picture">
+            </div>
+            <div class="about-text-box">
+                <h3>Hi, I'm Raven!</h3>
+                <p id="about-text-1">I’m a junior UX/UI developer and front-end enthusiast, passionate about crafting
+                    visually engaging, user-friendly websites that seamlessly blend design and function.</p>
+                <p id="about-text-2">I've honed my skills in HTML, CSS, and JavaScript through hands-on projects,
+                    constantly exploring everything from responsive layouts to dynamic animations. I love solving
+                    problems creatively and transforming ideas into digital experiences that are both functional and fun
+                    to use.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects-section" class="projects-section">
+        <h2>My Projects</h2>
+        <p class="projects-intro">
+            I designed and built this portfolio myself, making it a fun, dynamic space that reflects my creativity.
+            Each project below showcases a different skill, from front-end development to UX/UI design.
+        </p>
+        <div class="projects-grid">
+            <a href="iloveurnails.html" class="project-card">
+                <img src="iloveurnails.jpg" alt="I Love Ur Nails Project Mockup">
+                <h3>I Love Ur Nails</h3>
+                <p>A business website for a local nail salon, focusing on a streamlined booking experience and
+                    user-friendly interface.</p>
+                <div class="project-button">View Project</div>
+            </a>
+            <a href="catsaroundtheglobe.html" class="project-card">
+                <img src="catsaroundtheglobe.jpg" alt="Cats Around the Globe Project Mockup">
+                <h3>Cats Around the Globe</h3>
+                <p>An interactive travel blog for cat lovers, built with responsive design and engaging photo
+                    galleries.</p>
+                <div class="project-button">View Project</div>
+            </a>
+            <a href="themoodroom.html" class="project-card">
+                <img src="themoodroom.jpg" alt="The Mood Room Project Mockup">
+                <h3>The Mood Room</h3>
+                <p>A unique web application where users express thoughts that come to life with animated effects and
+                    sounds.</p>
+                <div class="project-button">View Project</div>
+            </a>
+        </div>
+    </section>
+
+    <section id="contact-section" class="contact-section">
+        <h2>Send Me a Message</h2>
+        <p class="contact-intro">I'm always open to new opportunities, collaborations, or just a friendly chat about
+            design and development. Use the form below, or connect with me on social media!</p>
+        <div class="contact-form-container">
+            <form action="https://formspree.io/f/meoleyww" method="POST">
+                <input type="text" name="name" placeholder="Your Name" required>
+                <input type="email" name="email" placeholder="Your Email" required>
+                <input type="text" name="subject" placeholder="Subject">
+                <textarea name="message" placeholder="Your Message" required></textarea>
+                <input type="submit" value="Send Message">
+            </form>
+            <div class="socials-bar">
+                <a href="https://www.linkedin.com/in/raven-besharah-833326382/" aria-label="LinkedIn Profile"
+                    target="_blank"><i class="fab fa-linkedin"></i></a>
+                <a href="https://github.com/ravenbesharah" aria-label="GitHub Profile" target="_blank"><i
+                        class="fab fa-github"></i></a>
+            </div>
+        </div>
+    </section>
+
+    <footer class="site-footer">
+        <p>&copy; <span id="current-year"></span> Raven Besharah. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Smooth scroll for navigation links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        targetElement.scrollIntoView({
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+
+            // Intersection Observer for fade-in animations on sections
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('in-view');
+                        // No need for specific animateAboutText function with this CSS approach
+                        observer.unobserve(entry.target); // Stop observing after animation runs once
+                    }
+                });
+            }, {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.1
+            });
+            document.querySelectorAll('section').forEach(section => {
+                observer.observe(section);
+            });
+
+            // Typing Effect for Hero Subtitle
+            const typedTextElement = document.getElementById('typed-text');
+            const textToType = "UX/UI Developer";
+            let i = 0;
+            const typingSpeed = 100;
+
+            function typeWriter() {
+                if (i < textToType.length) {
+                    typedTextElement.textContent += textToType.charAt(i);
+                    i++;
+                    setTimeout(typeWriter, typingSpeed);
+                }
+            }
+            typeWriter();
+
+            // Dynamic Copyright Year
+            document.getElementById('current-year').textContent = new Date().getFullYear();
+        });
+    </script>
+</body>
+
+</html>
