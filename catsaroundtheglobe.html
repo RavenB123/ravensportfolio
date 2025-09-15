@@ -5,11 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Project: Cats Around the Globe</title>
-    <!-- New font combination: Poppins for headings, Lato for body -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Poppins:wght@600;700&display=swap"
         rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         /* General Body and Font Styles */
         body {
@@ -257,6 +257,64 @@
             box-shadow: 0 8px 15px rgba(0, 0, 0, 0.5);
         }
 
+        /* Footer Styles */
+        .footer {
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 20px 40px;
+            box-sizing: border-box;
+            text-align: center;
+            font-size: 0.9em;
+            color: #aaa;
+            margin-top: auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .footer a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+
+        .footer a:hover {
+            color: #87ceeb;
+        }
+
+        /* Mobile-specific styles for the sound control button */
+        .video-controls {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            z-index: 10;
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: background-color 0.3s ease;
+        }
+
+        .video-controls:hover {
+            background-color: rgba(255, 255, 255, 0.4);
+        }
+
+        .video-controls i {
+            color: #fff;
+            font-size: 1.2em;
+        }
+
+        /* Media query to hide the video controls on desktop */
+        @media (min-width: 768px) {
+            .video-controls {
+                display: none;
+            }
+        }
+
         /* Mobile Optimization */
         @media (max-width: 767px) {
             .main-header {
@@ -339,10 +397,14 @@
         </nav>
     </header>
     <div class="background-container">
-        <video id="bg-video" autoplay loop playsinline>
+        <video id="bg-video" autoplay loop playsinline muted>
             <source src="background4.mp4" type="video/mp4">
             Your browser does not support the video tag.
         </video>
+    </div>
+
+    <div class="video-controls" id="video-controls">
+        <i class="fas fa-volume-mute"></i>
     </div>
 
     <div class="container">
@@ -378,7 +440,6 @@
                     <li>Scalable Design</li>
                     <li>SEO & Ad Optimization</li>
                     <li>Image Optimization</li>
-                    <!-- Updated AI skill text -->
                     <li>AI Tool Integration</li>
                 </ul>
                 <h2 class="project-links">Project Links</h2>
@@ -397,17 +458,30 @@
     </footer>
 
     <script>
-        // Get the video element
-        const video = document.getElementById('bg-video');
+        document.addEventListener('DOMContentLoaded', () => {
+            const video = document.getElementById('bg-video');
+            const controls = document.getElementById('video-controls');
+            const icon = controls.querySelector('i');
 
-        // Get all anchor elements (links) on the page
-        const links = document.querySelectorAll('a');
+            // Handle the play/pause functionality for sound
+            controls.addEventListener('click', () => {
+                if (video.muted) {
+                    video.muted = false;
+                    icon.classList.remove('fa-volume-mute');
+                    icon.classList.add('fa-volume-up');
+                } else {
+                    video.muted = true;
+                    icon.classList.remove('fa-volume-up');
+                    icon.classList.add('fa-volume-mute');
+                }
+            });
 
-        // Add a click event listener to each link
-        links.forEach(link => {
-            link.addEventListener('click', () => {
-                // Pause the video when any link is clicked
-                video.pause();
+            // Pause video on link clicks
+            const links = document.querySelectorAll('a');
+            links.forEach(link => {
+                link.addEventListener('click', () => {
+                    video.pause();
+                });
             });
         });
     </script>
