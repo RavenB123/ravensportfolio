@@ -361,7 +361,7 @@
     </header>
 
     <div class="background-container">
-        <video id="bg-video" autoplay loop playsinline muted>
+        <video id="bg-video" autoplay loop playsinline>
             <source src="background3.mp4" type="video/mp4">
             Your browser does not support the video tag.
         </video>
@@ -421,37 +421,42 @@
     </footer>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            // Get the video element
             const video = document.getElementById('bg-video');
-
-            // Get the sound control button and icon
             const controls = document.getElementById('video-controls');
-            // The video control button is not always on the page for this project,
-            // so we check if it exists before trying to use it.
-            if (controls) {
-                const icon = controls.querySelector('i');
-                // Handle the play/pause functionality for sound
-                controls.addEventListener('click', () => {
-                    if (video.muted) {
-                        video.muted = false;
-                        icon.classList.remove('fa-volume-mute');
-                        icon.classList.add('fa-volume-up');
-                    } else {
-                        video.muted = true;
-                        icon.classList.remove('fa-volume-up');
-                        icon.classList.add('fa-volume-mute');
-                    }
-                });
+            const icon = controls.querySelector('i');
+
+            // Simple check for mobile devices
+            function isMobile() {
+                return /Mobi|Android|iPhone|iPad|iPod|Windows Phone/i.test(navigator.userAgent);
             }
 
-            // Get all anchor elements (links) on the page
-            const links = document.querySelectorAll('a');
+            if (isMobile()) {
+                // Mute video and show controls for mobile devices
+                video.muted = true;
+                controls.style.display = 'flex';
+            } else {
+                // Unmute video and hide controls for desktop computers
+                video.muted = false;
+                controls.style.display = 'none';
+            }
 
-            // Add a click event listener to each link
+            // Handle the play/pause functionality for sound
+            controls.addEventListener('click', () => {
+                if (video.muted) {
+                    video.muted = false;
+                    icon.classList.remove('fa-volume-mute');
+                    icon.classList.add('fa-volume-up');
+                } else {
+                    video.muted = true;
+                    icon.classList.remove('fa-volume-up');
+                    icon.classList.add('fa-volume-mute');
+                }
+            });
+
+            const links = document.querySelectorAll('a');
             links.forEach(link => {
                 link.addEventListener('click', () => {
-                    // Pause the video when any link is clicked
-                    if (video) { // Check if the video element exists before pausing
+                    if (video) {
                         video.pause();
                     }
                 });
