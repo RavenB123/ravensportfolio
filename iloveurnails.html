@@ -372,7 +372,7 @@
         </nav>
     </header>
     <div class="background-container">
-        <video id="bg-video" autoplay loop playsinline muted>
+        <video id="bg-video" autoplay loop playsinline>
             <source src="background2.mp4" type="video/mp4">
             Your browser does not support the video tag.
         </video>
@@ -438,6 +438,22 @@
             const controls = document.getElementById('video-controls');
             const icon = controls.querySelector('i');
 
+            // A function to check if the user is on a mobile device
+            function isMobile() {
+                return /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+            }
+
+            // Check if the device is mobile. If it is, mute the video.
+            if (isMobile()) {
+                video.muted = true;
+                // Since it's a mobile device, we show the mute button.
+                controls.style.display = 'flex';
+            } else {
+                // For desktop, we unmute the video and hide the button.
+                video.muted = false;
+                controls.style.display = 'none';
+            }
+
             // Handle the play/pause functionality for sound
             controls.addEventListener('click', () => {
                 if (video.muted) {
@@ -458,7 +474,7 @@
             links.forEach(link => {
                 link.addEventListener('click', () => {
                     // Pause the video when any link is clicked
-                    if (video) { // Check if the video element exists before pausing
+                    if (video) {
                         video.pause();
                     }
                 });
