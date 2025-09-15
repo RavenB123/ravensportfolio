@@ -254,32 +254,7 @@
         .project-links .cta-button:last-of-type:hover {
             background-color: #2c2c2c;
             transform: translateY(-3px);
-            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.5);
-        }
-
-        /* Footer Styles */
-        .footer {
-            width: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            padding: 20px 40px;
-            box-sizing: border-box;
-            text-align: center;
-            font-size: 0.9em;
-            color: #aaa;
-            margin-top: auto;
-            position: relative;
-            z-index: 2;
-        }
-
-        .footer a {
-            color: #fff;
-            text-decoration: none;
-            font-weight: bold;
-            transition: color 0.3s ease;
-        }
-
-        .footer a:hover {
-            color: #87ceeb;
+            box-shadow: 8px 15px rgba(0, 0, 0, 0.5);
         }
 
         /* Mobile-specific styles for the sound control button */
@@ -397,7 +372,7 @@
         </nav>
     </header>
     <div class="background-container">
-        <video id="bg-video" autoplay loop playsinline muted>
+        <video id="bg-video" autoplay loop playsinline>
             <source src="background4.mp4" type="video/mp4">
             Your browser does not support the video tag.
         </video>
@@ -461,9 +436,24 @@
         document.addEventListener('DOMContentLoaded', () => {
             const video = document.getElementById('bg-video');
             const controls = document.getElementById('video-controls');
-            const icon = controls.querySelector('i');
+
+            // A function to check if the user is on a mobile device
+            function isMobile() {
+                return /Mobi|Android|iPhone|iPad|iPod|Windows Phone/i.test(navigator.userAgent);
+            }
+
+            if (isMobile()) {
+                // Mute video and show controls for mobile devices
+                video.muted = true;
+                controls.style.display = 'flex';
+            } else {
+                // Unmute video and hide controls for desktop computers
+                video.muted = false;
+                controls.style.display = 'none';
+            }
 
             // Handle the play/pause functionality for sound
+            const icon = controls.querySelector('i');
             controls.addEventListener('click', () => {
                 if (video.muted) {
                     video.muted = false;
